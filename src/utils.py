@@ -277,7 +277,11 @@ def read_txt_embeddings(params, source, full_vocab):
             if i == 0:
                 split = line.split()
                 assert len(split) == 2
-                assert _emb_dim_file == int(split[1])
+                try:
+                    assert _emb_dim_file == int(split[1])
+                except:
+                    import pdb
+                    #pdb.set_trace()
             else:
                 word, vect = line.rstrip().split(' ', 1)
                 if not full_vocab:

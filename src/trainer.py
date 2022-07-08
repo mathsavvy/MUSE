@@ -135,6 +135,8 @@ class Trainer(object):
         """
         Load training dictionary.
         """
+        # import pdb
+        # pdb.set_trace()
         word2id1 = self.src_dico.word2id
         word2id2 = self.tgt_dico.word2id
 

@@ -28,16 +28,16 @@ parser.add_argument("--verbose", type=int, default=2, help="Verbose level (2:deb
 parser.add_argument("--exp_path", type=str, default="", help="Where to store experiment logs and models")
 parser.add_argument("--exp_name", type=str, default="debug", help="Experiment name")
 parser.add_argument("--exp_id", type=str, default="", help="Experiment ID")
-parser.add_argument("--cuda", type=bool_flag, default=True, help="Run on GPU")
+parser.add_argument("--cuda", type=bool_flag, default=False, help="Run on GPU")
 parser.add_argument("--export", type=str, default="txt", help="Export embeddings after training (txt / pth)")
 
 # data
 parser.add_argument("--src_lang", type=str, default='en', help="Source language")
 parser.add_argument("--tgt_lang", type=str, default='es', help="Target language")
-parser.add_argument("--emb_dim", type=int, default=300, help="Embedding dimension")
+parser.add_argument("--emb_dim", type=int, default=100, help="Embedding dimension")
 parser.add_argument("--max_vocab", type=int, default=200000, help="Maximum vocabulary size (-1 to disable)")
 # training refinement
-parser.add_argument("--n_refinement", type=int, default=5, help="Number of refinement iterations (0 to disable the refinement procedure)")
+parser.add_argument("--n_refinement", type=int, default=1, help="Number of refinement iterations (0 to disable the refinement procedure)")
 # dictionary creation parameters (for refinement)
 parser.add_argument("--dico_train", type=str, default="default", help="Path to training dictionary (default: use identical character strings)")
 parser.add_argument("--dico_eval", type=str, default="default", help="Path to evaluation dictionary")
@@ -57,7 +57,6 @@ parser.add_argument("--normalize_embeddings", type=str, default="", help="Normal
 params = parser.parse_args()
 
 # check parameters
-assert not params.cuda or torch.cuda.is_available()
 assert params.dico_train in ["identical_char", "default"] or os.path.isfile(params.dico_train)
 assert params.dico_build in ["S2T", "T2S", "S2T|T2S", "S2T&T2S"]
 assert params.dico_max_size == 0 or params.dico_max_size < params.dico_max_rank
